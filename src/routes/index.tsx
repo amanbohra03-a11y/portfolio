@@ -146,7 +146,7 @@ function HomePage() {
               Get in touch
             </Link>
             <a
-              href="/AmanBohra_Resume.pdf"
+              href={`${import.meta.env.BASE_URL}AmanBohra_Resume.pdf`}
               download
               className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:border-gold transition-all duration-300 hover:scale-105"
             >
