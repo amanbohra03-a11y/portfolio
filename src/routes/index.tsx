@@ -16,6 +16,7 @@ const cadSkills = [
   { name: "CATIA V5", level: "Proficient" },
   { name: "SolidWorks", level: "Proficient" },
   { name: "AutoCAD", level: "Expert" },
+  { name: "ANSYS", level: "Beginner" }
 ];
 
 const otherSkills = [
