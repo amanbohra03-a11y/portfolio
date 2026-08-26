@@ -19,10 +19,13 @@ type Project = {
   description: string;
   image: string;
   video?: string;
+  sheet?: string;
   tools: string[];
   tags: string[];
   stats: { label: string; value: string }[];
 };
+
+const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
 
 const projects: Project[] = [
   {
@@ -30,8 +33,9 @@ const projects: Project[] = [
     title: "Engine Mounting Bracket",
     description:
       "High-strength aluminum engine mounting bracket for an EV powertrain. Vibration analysis and topology optimization reduced weight 34% while maintaining structural integrity under 8G load cases.",
-    image: "/images/project-engine-bracket.jpg",
-    video: "/videos/project-engine-bracket.mp4",
+    image: assetPath("images/project-engine-bracket.jpg"),
+    video: assetPath("videos/project-engine-bracket.mp4"),
+    sheet: assetPath("images/crankshaft.pdf"),
     tools: ["SolidWorks", "ANSYS", "GD&T"],
     tags: ["Automotive", "FEA", "Topology"],
     stats: [
@@ -45,8 +49,9 @@ const projects: Project[] = [
     title: "Precision Planetary Gearbox",
     description:
       "Compact 14:1 planetary gearbox for a robotic joint actuator. Full 3D modeling, tolerance stack-up, and manufacturing drawings. Backlash under 3 arc-minutes at 500 Nm peak torque.",
-    image: "/images/project-gearbox.jpg",
-    video: "/videos/project-gearbox.mp4",
+    image: assetPath("images/project-gearbox.jpg"),
+    video: assetPath("videos/project-gearbox.mp4"),
+    sheet: assetPath("images/Drawing1 bushholder_Sheet_1.pdf"),
     tools: ["CATIA", "KISSsoft", "AutoCAD"],
     tags: ["Robotics", "Gear Design", "Tolerance"],
     stats: [
@@ -60,8 +65,8 @@ const projects: Project[] = [
     title: "Forged Aluminum Suspension Arm",
     description:
       "Redesigned front lower control arm using generative design. Nonlinear FEA with contact analysis achieved 22% weight reduction and 1.82 safety factor under max cornering loads.",
-    image: "/images/project-suspension.jpg",
-    video: "/videos/project-suspension.mp4",
+    image: assetPath("images/project-suspension.jpg"),
+    video: assetPath("videos/project-suspension.mp4"),
     tools: ["SolidWorks", "ABAQUS", "AutoCAD"],
     tags: ["Automotive", "Generative", "Structural"],
     stats: [
@@ -115,7 +120,27 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       {/* Media */}
       <div className={`relative aspect-video overflow-hidden rounded-xl bg-background border border-border ${isEven ? "" : "lg:order-2"}`}>
-        {playing ? (
+        {project.sheet ? (
+          <>
+            <iframe
+              src={project.sheet}
+              title={`${project.title} engineering sheet`}
+              className="h-full w-full bg-white"
+              loading="lazy"
+            />
+            <a
+              href={project.sheet}
+              target="_blank"
+              rel="noreferrer"
+              className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur px-2.5 py-1 text-[10px] font-medium text-gold border border-gold/20 shadow-sm"
+            >
+              Open PDF
+            </a>
+            <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur px-2.5 py-1 text-[10px] font-medium text-gold border border-gold/20">
+              <Film className="h-3 w-3" /> Design sheet
+            </div>
+          </>
+        ) : playing ? (
           <video
             src={project.video}
             controls
